@@ -1,0 +1,10 @@
+com\zhuguang\jack\spring\configBean\Reference.class
+com\zhuguang\jack\spring\configBean\Protocol.class
+com\zhuguang\jack\spring\parse\RegistryBeanDefinitionParse.class
+com\zhuguang\jack\advice\InvokeInvocationHandler.class
+com\zhuguang\jack\spring\configBean\Service.class
+com\zhuguang\jack\spring\parse\ReferenceBeanDefinitionParse.class
+com\zhuguang\jack\spring\parse\SOANamespaceHandler.class
+com\zhuguang\jack\spring\configBean\Registry.class
+com\zhuguang\jack\spring\parse\ProtocolBeanDefinitionParse.class
+com\zhuguang\jack\spring\parse\ServiceBeanDefinitionParse.class

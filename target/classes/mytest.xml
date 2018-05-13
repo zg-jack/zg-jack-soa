@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:jack="http://www.zhuguangedu.com/schema/soa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	   http://www.zhuguangedu.com/schema/soa 
+	   http://www.zhuguangedu.com/schema/soa.xsd"
+       default-lazy-init="true">
+	<jack:reference interface="com.zhuguang.jack.service.UserService" check="" protocol="http"></jack:reference>
+	<jack:registry id="" protocol="zookeeper" address=""></jack:registry>
+	<jack:protocol id="" name="http" port="8083" host="127.0.0.1"></jack:protocol>
+	<jack:service></jack:service>
+</beans>  
