@@ -1,11 +1,14 @@
 package com.zhuguang.jack.spring.configBean;
 
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -14,8 +17,9 @@ import com.zhuguang.jack.invoke.HttpInvoke;
 import com.zhuguang.jack.invoke.Invoke;
 import com.zhuguang.jack.invoke.NettyInvoke;
 import com.zhuguang.jack.invoke.RmiInvoke;
+import com.zhuguang.jack.registry.BaseRegistryDelegate;
 
-public class Reference implements FactoryBean,ApplicationContextAware {
+public class Reference implements FactoryBean,ApplicationContextAware,InitializingBean {
     private String id;
     
     private String intf;
@@ -29,6 +33,13 @@ public class Reference implements FactoryBean,ApplicationContextAware {
     private ApplicationContext application;
     
     private static Map<String,Invoke> invokeMaps = new HashMap<String,Invoke>();
+    
+      
+    /** 
+     * @Fields registryInfo 本地缓存注册中心中的服务列表信息
+     */  
+        
+    private List<String> registryInfo = new ArrayList<String>();
     
     
     static {
@@ -121,5 +132,9 @@ public class Reference implements FactoryBean,ApplicationContextAware {
 
     public void setProtocol(String protocol) {
         this.protocol = protocol;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        registryInfo = BaseRegistryDelegate.getRegistry(id, application);
     }
 }

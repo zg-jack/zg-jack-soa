@@ -4,6 +4,8 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 import com.zhuguang.jack.spring.configBean.Protocol;
 import com.zhuguang.jack.spring.configBean.Reference;
+import com.zhuguang.jack.spring.configBean.Registry;
+import com.zhuguang.jack.spring.configBean.Service;
 
 
   
@@ -19,9 +21,9 @@ import com.zhuguang.jack.spring.configBean.Reference;
 public class SOANamespaceHandler extends NamespaceHandlerSupport {
 
     public void init() {
-        this.registerBeanDefinitionParser("registry", new RegistryBeanDefinitionParse());
+        this.registerBeanDefinitionParser("registry", new RegistryBeanDefinitionParse(Registry.class));
         this.registerBeanDefinitionParser("reference", new ReferenceBeanDefinitionParse(Reference.class));
         this.registerBeanDefinitionParser("protocol", new ProtocolBeanDefinitionParse(Protocol.class));
-        this.registerBeanDefinitionParser("service", new ServiceBeanDefinitionParse());
+        this.registerBeanDefinitionParser("service", new ServiceBeanDefinitionParse(Service.class));
     }
 }
