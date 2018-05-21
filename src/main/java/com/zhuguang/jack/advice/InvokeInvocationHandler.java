@@ -3,6 +3,7 @@ package com.zhuguang.jack.advice;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+import com.zhuguang.jack.cluster.Cluster;
 import com.zhuguang.jack.invoke.Invocation;
 import com.zhuguang.jack.invoke.Invoke;
 import com.zhuguang.jack.spring.configBean.Reference;
@@ -38,7 +39,11 @@ public class InvokeInvocationHandler implements InvocationHandler {
         invocation.setMethod(method);
         invocation.setObjs(args);
         invocation.setReference(reference);
-        return invoke.invoke(invocation);
+        invocation.setInvoke(invoke);
+        
+        Cluster cluster = reference.getServers().get(reference.getCluster());
+        String result = cluster.invoke(invocation);
+        return result;
     }
     
 }

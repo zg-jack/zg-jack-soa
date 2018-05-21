@@ -27,6 +27,8 @@ public class ReferenceBeanDefinitionParse implements BeanDefinitionParser {
         String check = element.getAttribute("check");
         String protocol = element.getAttribute("protocol");
         String loadbalance = element.getAttribute("loadbalance");
+        String cluster = element.getAttribute("cluster");
+        String retries = element.getAttribute("retries");
         
         if (id != null && !"".equals(id)) {
             if (parserContext.getRegistry().containsBeanDefinition(id)) {
@@ -49,6 +51,8 @@ public class ReferenceBeanDefinitionParse implements BeanDefinitionParser {
         rootBeanDefinition.getPropertyValues().add("check", check);
         rootBeanDefinition.getPropertyValues().add("protocol", protocol);
         rootBeanDefinition.getPropertyValues().add("loadbalance", loadbalance);
+        rootBeanDefinition.getPropertyValues().add("cluster", cluster);
+        rootBeanDefinition.getPropertyValues().add("retries", retries);
         
         //这个创建出来的rootBeanDefinition对象必须要交个spring管理
         parserContext.getRegistry().registerBeanDefinition(id, rootBeanDefinition);

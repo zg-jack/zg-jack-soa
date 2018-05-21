@@ -1,10 +1,41 @@
 package com.zhuguang.jack.invoke;
 
+import java.util.List;
+
+import com.alibaba.fastjson.JSONObject;
+import com.zhuguang.jack.loadBalance.LoadBalance;
+import com.zhuguang.jack.netty.NettyUtil;
+import com.zhuguang.jack.spring.configBean.Reference;
+
 public class NettyInvoke implements Invoke {
     
     public String invoke(Invocation invoke) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        //这里需要得到一个服务列表去调用，那么服务列表怎么来？
+        Reference reference = invoke.getReference();
+        List<String> registryInfo = reference.getRegistryInfo();
+        String loadbalance = reference.getLoadbalance();
+        
+        //在这里需要选择某一个服务去调用,那么在这里如何选择呢？就是一个负载均衡算法
+        //轮询、随机、最小活跃数、权重
+        LoadBalance loadbalanceClass = reference.getLoadBalances()
+                .get(loadbalance);
+        NodeInfo nodeinfo = loadbalanceClass.doSelect(registryInfo);
+        
+        JSONObject sendParam = new JSONObject();
+        sendParam.put("methodName", invoke.getMethod().getName());
+        sendParam.put("serviceId", reference.getId());
+        sendParam.put("methodParams", invoke.getObjs());
+        sendParam.put("paramTypes", invoke.getMethod().getParameterTypes());
+        
+        try {
+            return NettyUtil.sendMsg(nodeinfo.getHost(),
+                    nodeinfo.getPort(),
+                    sendParam.toJSONString());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
     
 }

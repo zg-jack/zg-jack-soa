@@ -13,6 +13,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import com.zhuguang.jack.advice.InvokeInvocationHandler;
+import com.zhuguang.jack.cluster.Cluster;
+import com.zhuguang.jack.cluster.FailoverCluster;
 import com.zhuguang.jack.invoke.HttpInvoke;
 import com.zhuguang.jack.invoke.Invoke;
 import com.zhuguang.jack.invoke.NettyInvoke;
@@ -33,6 +35,10 @@ public class Reference implements FactoryBean,ApplicationContextAware,Initializi
     
     private String loadbalance;
     
+    private String cluster;
+    
+    private String retries;
+    
     private Invoke invoke;
     
     private ApplicationContext application;
@@ -40,6 +46,8 @@ public class Reference implements FactoryBean,ApplicationContextAware,Initializi
     private static Map<String,Invoke> invokeMaps = new HashMap<String,Invoke>();
     
     private static Map<String,LoadBalance> loadBalances = new HashMap<String,LoadBalance>();
+    
+    private static Map<String,Cluster> servers = new HashMap<String,Cluster>();
     
       
     /** 
@@ -57,6 +65,10 @@ public class Reference implements FactoryBean,ApplicationContextAware,Initializi
         
         loadBalances.put("random", new RondomLoadBalance());
         loadBalances.put("roundrob", new RoundRobinLoadBalance());
+        
+        servers.put("failover", new FailoverCluster());
+        servers.put("failfast", new FailoverCluster());
+        servers.put("failsafe", new FailoverCluster());
     }
     
     /* 
@@ -170,5 +182,29 @@ public class Reference implements FactoryBean,ApplicationContextAware,Initializi
 
     public void setLoadbalance(String loadbalance) {
         this.loadbalance = loadbalance;
+    }
+
+    public String getCluster() {
+        return cluster;
+    }
+
+    public void setCluster(String cluster) {
+        this.cluster = cluster;
+    }
+
+    public String getRetries() {
+        return retries;
+    }
+
+    public void setRetries(String retries) {
+        this.retries = retries;
+    }
+
+    public static Map<String, Cluster> getServers() {
+        return servers;
+    }
+
+    public static void setServers(Map<String, Cluster> servers) {
+        Reference.servers = servers;
     }
 }
