@@ -17,6 +17,9 @@ import com.zhuguang.jack.invoke.HttpInvoke;
 import com.zhuguang.jack.invoke.Invoke;
 import com.zhuguang.jack.invoke.NettyInvoke;
 import com.zhuguang.jack.invoke.RmiInvoke;
+import com.zhuguang.jack.loadBalance.LoadBalance;
+import com.zhuguang.jack.loadBalance.RondomLoadBalance;
+import com.zhuguang.jack.loadBalance.RoundRobinLoadBalance;
 import com.zhuguang.jack.registry.BaseRegistryDelegate;
 
 public class Reference implements FactoryBean,ApplicationContextAware,InitializingBean {
@@ -28,11 +31,15 @@ public class Reference implements FactoryBean,ApplicationContextAware,Initializi
     
     private String protocol;
     
+    private String loadbalance;
+    
     private Invoke invoke;
     
     private ApplicationContext application;
     
     private static Map<String,Invoke> invokeMaps = new HashMap<String,Invoke>();
+    
+    private static Map<String,LoadBalance> loadBalances = new HashMap<String,LoadBalance>();
     
       
     /** 
@@ -47,6 +54,9 @@ public class Reference implements FactoryBean,ApplicationContextAware,Initializi
         invokeMaps.put("rmi", new RmiInvoke());
         invokeMaps.put("netty", new NettyInvoke());
         invokeMaps.put("jack", new NettyInvoke());
+        
+        loadBalances.put("random", new RondomLoadBalance());
+        loadBalances.put("roundrob", new RoundRobinLoadBalance());
     }
     
     /* 
@@ -136,5 +146,29 @@ public class Reference implements FactoryBean,ApplicationContextAware,Initializi
 
     public void afterPropertiesSet() throws Exception {
         registryInfo = BaseRegistryDelegate.getRegistry(id, application);
+    }
+
+    public List<String> getRegistryInfo() {
+        return registryInfo;
+    }
+
+    public void setRegistryInfo(List<String> registryInfo) {
+        this.registryInfo = registryInfo;
+    }
+
+    public static Map<String, LoadBalance> getLoadBalances() {
+        return loadBalances;
+    }
+
+    public static void setLoadBalances(Map<String, LoadBalance> loadBalances) {
+        Reference.loadBalances = loadBalances;
+    }
+
+    public String getLoadbalance() {
+        return loadbalance;
+    }
+
+    public void setLoadbalance(String loadbalance) {
+        this.loadbalance = loadbalance;
     }
 }

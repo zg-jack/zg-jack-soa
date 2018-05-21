@@ -2,12 +2,16 @@ package com.zhuguang.jack.invoke;
 
 import java.lang.reflect.Method;
 
+import com.zhuguang.jack.spring.configBean.Reference;
+
 public class Invocation {
     private Method method;
     
     private Object[] objs;
     
     private String intf;
+    
+    private Reference reference;
 
     public Method getMethod() {
         return method;
@@ -31,6 +35,14 @@ public class Invocation {
 
     public void setIntf(String intf) {
         this.intf = intf;
+    }
+
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
     
     

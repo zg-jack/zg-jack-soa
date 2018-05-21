@@ -24,6 +24,8 @@ public class ProtocolBeanDefinitionParse implements BeanDefinitionParser {
         String name = element.getAttribute("name");
         String port = element.getAttribute("port");
         String host = element.getAttribute("host");
+        String contextpath = element.getAttribute("contextpath");
+        
         
         if (id != null && !"".equals(id)) {
             if (parserContext.getRegistry().containsBeanDefinition(id)) {
@@ -41,6 +43,7 @@ public class ProtocolBeanDefinitionParse implements BeanDefinitionParser {
         rootBeanDefinition.getPropertyValues().add("name", name);
         rootBeanDefinition.getPropertyValues().add("port", port);
         rootBeanDefinition.getPropertyValues().add("host", host);
+        rootBeanDefinition.getPropertyValues().add("contextpath", contextpath);
         
         //这个创建出来的rootBeanDefinition对象必须要交个spring管理
         parserContext.getRegistry().registerBeanDefinition(id, rootBeanDefinition);

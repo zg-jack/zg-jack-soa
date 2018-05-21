@@ -7,9 +7,9 @@
 	   http://www.zhuguangedu.com/schema/soa 
 	   http://www.zhuguangedu.com/schema/soa.xsd"
        default-lazy-init="true">
-	<jack:reference id="" interface="com.zhuguang.jack.service.UserService" check="" protocol="http"></jack:reference>
+	<jack:reference id="" interface="com.zhuguang.jack.service.UserService" check="" protocol="http" loadbalance="random"></jack:reference>
 	<jack:registry id="" protocol="redis" address="127.0.0.1:6379"></jack:registry>
-	<jack:protocol id="" name="http" port="8083" host="127.0.0.1"></jack:protocol>
+	<jack:protocol id="" name="http" port="8083" host="127.0.0.1" contextpath=""></jack:protocol>
 	<bean class="xxxx" id="userServiceImpl"></bean>
 	<jack:service id="" interface="com.zhuguang.jack.service.UserService" ref="userServiceImpl"></jack:service>
 	<jack:service id="" interface="com.zhuguang.jack.service.UserService" ref="userServiceImpl"></jack:service>

@@ -15,6 +15,7 @@
 			<xsd:attribute name="interface" type="xsd:string"></xsd:attribute>
 			<xsd:attribute name="check" type="xsd:string"></xsd:attribute>
 			<xsd:attribute name="protocol" type="xsd:string"></xsd:attribute>
+			<xsd:attribute name="loadbalance" type="xsd:string"></xsd:attribute>
 		</xsd:complexType>
 	</xsd:element>	
 	<xsd:element name="protocol">
@@ -23,6 +24,7 @@
 			<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
 			<xsd:attribute name="port" type="xsd:string"></xsd:attribute>
 			<xsd:attribute name="host" type="xsd:string"></xsd:attribute>
+			<xsd:attribute name="contextpath" type="xsd:string"></xsd:attribute>
 		</xsd:complexType>
 	</xsd:element>	
 	<xsd:element name="service">

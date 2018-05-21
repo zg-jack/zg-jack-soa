@@ -37,6 +37,7 @@ public class InvokeInvocationHandler implements InvocationHandler {
         invocation.setIntf(reference.getIntf());
         invocation.setMethod(method);
         invocation.setObjs(args);
+        invocation.setReference(reference);
         return invoke.invoke(invocation);
     }
     

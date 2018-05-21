@@ -14,7 +14,7 @@ public class Service implements InitializingBean,ApplicationContextAware {
     
     private String ref;
     
-    private ApplicationContext application;
+    private static ApplicationContext application;
 
     public String getId() {
         return id;
@@ -50,6 +50,10 @@ public class Service implements InitializingBean,ApplicationContextAware {
 
     public void setApplicationContext(ApplicationContext applicationContext)
             throws BeansException {
-        this.application = applicationContext;
+        Service.application = applicationContext;
+    }
+
+    public static ApplicationContext getApplication() {
+        return application;
     }
 }

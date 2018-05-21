@@ -8,6 +8,8 @@ public class Protocol {
     private String name;
     
     private String host;
+    
+    private String contextpath;
 
     public String getId() {
         return id;
@@ -39,5 +41,13 @@ public class Protocol {
 
     public void setHost(String host) {
         this.host = host;
+    }
+
+    public String getContextpath() {
+        return contextpath;
+    }
+
+    public void setContextpath(String contextpath) {
+        this.contextpath = contextpath;
     }
 }
